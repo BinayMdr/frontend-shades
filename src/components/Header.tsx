@@ -2,15 +2,18 @@
 import { useState, useEffect } from "react";
 import Image from 'next/image';
 import Cart from "../assets/img/icon/cart.png";
-import Logo from "../assets/img/logo.png";
 import Link from 'next/link';
 import { findSettingByKey } from "@/helper/settingHelper";
+import { usePathname } from 'next/navigation';
+
 
 function Header() {
     const [status, setStatus] = useState<"active" | "inactive">("inactive");
     const [showHeader, setShowHeader] = useState<boolean>(false);
     const topTextSetting = findSettingByKey("top-text");
     const bannerImageSetting = findSettingByKey("banner-image");
+    const pathname = usePathname()
+
 
     useEffect(() => {
         if (topTextSetting !== null && bannerImageSetting !== null) {
@@ -119,12 +122,12 @@ function Header() {
                         <div className="col-lg-8 col-md-8">
                             <nav className="header__menu mobile-menu">
                                 <ul>
-                                    <li className="active"><Link href="/">Home</Link></li>
-                                    <li><Link href="/about-us">About Us</Link></li>
-                                    <li><Link href="/products">Products</Link></li>
-                                    <li><Link href="/profile">Profile</Link></li>
-                                    <li><Link href="/profile/past-order">Past Orders</Link></li>
-                                    <li><Link href="/contacts">Contacts</Link></li>
+                                    <li className={(pathname == "/") ? 'active' : ''}><Link href="/">Home</Link></li>
+                                    <li className={(pathname == "/about-us") ? 'active' : ''}><Link href="/about-us" >About Us</Link></li>
+                                    <li className={(pathname.includes('products')) ? 'active' : ''}><Link href="/products">Products</Link></li>
+                                    <li className={(pathname == "/profile") ? 'active' : ''}><Link href="/profile">Profile</Link></li>
+                                    <li className={(pathname == "/profile/past-order") ? 'active' : ''}><Link href="/profile/past-order">Past Orders</Link></li>
+                                    <li className={(pathname == "/contact-us") ? 'active' : ''}><Link href="/contacts">Contacts</Link></li>
                                 </ul>
                             </nav>
                         </div>
