@@ -7,7 +7,6 @@ export default function Contact() {
   
 const { data, error, isLoading } = useApi('contact');
    
-console.log(isLoading)
   return (
     
     <Layout>  
