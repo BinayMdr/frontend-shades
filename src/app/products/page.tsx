@@ -1,14 +1,27 @@
 "use client"
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import Link from 'next/link';
 
 import Product from "../../assets/img/product/product-1.jpg"
 import Product2 from "../../assets/img/product/product-2.jpg"
 
+import { useSearchParams,usePathname } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
-export default function AboutUs() {
+export default function Products() {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const [searchKey,setSearchKey] = useState<String|null>(null);
+    const [searchValue,setSearchValue] = useState<String|null>(null);
   
+    const pathname = usePathname()
+    useEffect(() => {
+        setSearchKey(searchParams.get('searchKey'));
+        setSearchValue(searchParams.get('searchValue'));
+        router.replace(pathname);
+    }, []); 
+
   return (
     <Layout>
        <section className="breadcrumb-option">

@@ -15,7 +15,7 @@ import ProductBig4 from '../../../assets/img/shop-details/product-big-4.png'
 
 import Product2 from "../../../assets/img/product/product-2.jpg"
 
-export default function AboutUs() {
+export default function ProductDetail() {
   
   return (
     <Layout>
