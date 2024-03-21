@@ -1,13 +1,7 @@
 "use client"
-import React, { useEffect } from 'react';
-import Layout from '../../components/Layout';
-import Image from 'next/image';
+import React from 'react';
 import Link from 'next/link';
 import useApi from '@/hooks/useApi';
-
-import AboutUsImage from "../../assets/img/about/about-us.jpg"
-import Author from "../../assets/img/about/testimonial-author.jpg"
-import TestimonialPic from "../../assets/img/about/testimonial-pic.jpg"
 
 
 export default function AboutUs() {
@@ -15,9 +9,8 @@ export default function AboutUs() {
     const { data, error, isLoading } = useApi('about-us');
 
   return (
-    <Layout>
-       
-       { !isLoading && ( 
+    <>  
+       { data.data  ? ( 
         <>
             <section className="breadcrumb-option">
                 <div className="container">
@@ -97,8 +90,14 @@ export default function AboutUs() {
                 </section>
             }
         </>
+       ) : 
+       (<div className="d-flex justify-content-center align-items-center spinner-container my-4">
+            <div className="spinner-border" role="status">
+                <span className="sr-only">Loading...</span>
+            </div>
+        </div>
        )
         }
-    </Layout>       
+    </>       
   );
 }

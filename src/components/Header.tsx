@@ -3,27 +3,37 @@ import { useState, useEffect } from "react";
 import Image from 'next/image';
 import Cart from "../assets/img/icon/cart.png";
 import Link from 'next/link';
-import { findSettingByKey } from "@/helper/settingHelper";
 import { usePathname } from 'next/navigation';
-
-
+import useApi from '@/hooks/useApi';
+import { setSettingState } from '@/store/reducers/SettingReducer';
+import { useAppSelector,useAppDispatch } from '../store/index';
+import { setSplashState } from '../store/reducers/SplashReducer';
+import SplashScreen from './SplashScreen';
+interface Setting {
+    key: string;
+    value: string;
+    // Add other properties if needed
+  }
 function Header() {
     const [status, setStatus] = useState<"active" | "inactive">("inactive");
-    const [showHeader, setShowHeader] = useState<boolean>(false);
-    const topTextSetting = findSettingByKey("top-text");
-    const bannerImageSetting = findSettingByKey("banner-image");
+    const [topText,setTopText] = useState<String|null>(null);
+    const [bannerImage,setBannerImage] = useState<String|null>(null);
     const pathname = usePathname()
-
+    const dispatch = useAppDispatch();
+    const { data, error, isLoading } = useApi('settings');
+    dispatch(setSettingState(data));
 
     useEffect(() => {
-        if (topTextSetting !== null && bannerImageSetting !== null) {
-            setShowHeader(true);
+        if (data && data.data) {
+            const topTextEntry = Object.entries(data.data).find(([_, value]) => value.key === "top-text");
+            const bannerImageEntry = Object.entries(data.data).find(([_, value]) => value.key === "banner-image");
+            
+            setTopText(topTextEntry ? topTextEntry[1]['value'] : null);
+            setBannerImage(bannerImageEntry ? bannerImageEntry[1]['value'] : null);
         }
-    }, [topTextSetting, bannerImageSetting]);
-    
+    }, [data]); 
 
     useEffect(() => {
-        
         if (typeof window !== 'undefined') {
             const closeMenuOnOutsideClick = (event: MouseEvent) => {
                 const offcanvasMenu = document.querySelector('.offcanvas-menu-wrapper');
@@ -44,9 +54,13 @@ function Header() {
         }  
     }, []);
 
+    const animation = useAppSelector((state) => state.splash.splashState);
+    const onAnimationComplete = () => {
+        dispatch(setSplashState(false))
+      }
 
     return (
-        <>{ showHeader &&(
+        <>{ !animation ? ((topText && bannerImage) &&(
             <>
             <div className={`offcanvas-menu-overlay ${status}`}></div>
             <div className={`offcanvas-menu-wrapper ${status}`}>
@@ -84,7 +98,7 @@ function Header() {
                     </div>
                 </div>
                 <div className="offcanvas__text">
-                    <p>{topTextSetting?.value}</p>
+                    <p>{topText}</p>
                 </div>
             </div>
             <header className="header">
@@ -93,7 +107,7 @@ function Header() {
                         <div className="row">
                             <div className="col-lg-6 col-md-7">
                                 <div className="header__top__left">
-                                    <p>{topTextSetting?.value}</p>
+                                    <p>{topText}</p>
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-5">
@@ -116,7 +130,7 @@ function Header() {
                     <div className="row">
                         <div className="col-lg-2 col-md-2">
                             <div className="header__logo">
-                                <Link href="/"><img src={`${process.env.NEXT_PUBLIC_STORAGE_URL}${bannerImageSetting?.value}`} alt="Shades with style logo"/></Link>
+                                <Link href="/"><img src={`${process.env.NEXT_PUBLIC_STORAGE_URL}${bannerImage}`} alt="Shades with style logo"/></Link>
                             </div>
                         </div>
                         <div className="col-lg-8 col-md-8">
@@ -141,7 +155,7 @@ function Header() {
                 </div>
             </header>
             </>
-            )
+            )): (<SplashScreen onAnimationComplete={onAnimationComplete}/>)
            }
         </>
     );

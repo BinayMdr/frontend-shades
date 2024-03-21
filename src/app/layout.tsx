@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import {Providers} from '../store/provider'
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Shades with style",
@@ -28,7 +30,12 @@ export default function RootLayout({
         <link rel="stylesheet" href="/assets/css/style.css" type="text/css" />
       </head>
       <body>
-        <Providers>{children}</Providers></body>
+        <Providers>
+          <Header/>
+          {children}
+          <Footer/>
+          </Providers>
+      </body>
     </html>
   );
 }

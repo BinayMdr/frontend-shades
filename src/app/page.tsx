@@ -14,7 +14,7 @@ import ProductSale from "../assets/img/product-sale.png"
 export default function Home() {
 
     return (
-        <Layout>
+        <>
         <section className="hero">
                 <div className="hero__slider">
                     <div className="hero__items set-bg" style={{ backgroundImage: `url(${Hero.src})` }}>
@@ -235,6 +235,6 @@ export default function Home() {
                 </div>
             </section>
 
-        </Layout>       
+        </>       
     );
 }
