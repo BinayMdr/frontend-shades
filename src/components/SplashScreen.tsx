@@ -1,10 +1,5 @@
 "use client"
-import { useState } from "react";
 import { motion } from "framer-motion";
-import Logo from "../assets/img/logo.png";
-import Image from "next/image"
-import SplashLogo from "../assets/img/Logo-removebg-preview.svg";
-import { useAppSelector,useAppDispatch } from '../store/index';
 import { findSettingByKey } from "@/helper/settingHelper";
 
 export default function SplashScreen({ onAnimationComplete }: { onAnimationComplete: () => void }) {
