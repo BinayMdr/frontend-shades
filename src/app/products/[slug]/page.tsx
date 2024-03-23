@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect } from 'react';
-import Layout from '../../../components/Layout';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -18,7 +17,7 @@ import Product2 from "../../../assets/img/product/product-2.jpg"
 export default function ProductDetail() {
   
   return (
-    <Layout>
+    <>
        <section className="shop-details">
         <div className="product__details__pic">
             <div className="container">
@@ -218,7 +217,7 @@ export default function ProductDetail() {
                 </div>
             </div>
         </div>
-    </section>
+        </section>
     
     <section className="related spad">
         <div className="container">
@@ -262,6 +261,6 @@ export default function ProductDetail() {
     </section>
      
 
-    </Layout>       
+    </>       
   );
 }
