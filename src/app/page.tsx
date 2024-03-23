@@ -46,7 +46,6 @@ export default function Home() {
     }, [saleProductApi]);
     
     const getNepaliTimeDifference = (startDate: Date) => {
-        console.log(startDate)
         const endDate = new Date();
         
         const startMillis = new Date(startDate).getTime();

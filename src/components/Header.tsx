@@ -32,6 +32,10 @@ function Header() {
         }
     }, [data]); 
 
+    const updateSideBar = () => {
+        setStatus('inactive')
+    }
+
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const closeMenuOnOutsideClick = (event: MouseEvent) => {
@@ -86,12 +90,12 @@ function Header() {
                                     <span className="slicknav_icon-bar"></span></span></a>
                                 <nav className="slicknav_nav slicknav_hidden" aria-hidden="true" role="menu" style={{display: 'none'}}>
                                     <ul>
-                                        <li><Link href="/" role="menuitem">Home</Link></li>
-                                        <li><Link href="about-us" role="menuitem">About Us</Link></li>
-                                        <li><Link href="products" role="menuitem">Products</Link></li>
-                                        <li><Link href="profile" role="menuitem">Profile</Link></li>
-                                        <li><Link href="profile/past-order" role="menuitem">Past Orders</Link></li>
-                                        <li><Link href="contacts" role="menuitem">Contacts</Link></li>
+                                        <li><Link href="/" role="menuitem" onClick={updateSideBar}>Home</Link></li>
+                                        <li><Link href="about-us" role="menuitem" onClick={updateSideBar}>About Us</Link></li>
+                                        <li><Link href="products" role="menuitem" onClick={updateSideBar}>Products</Link></li>
+                                        <li><Link href="profile" role="menuitem" onClick={updateSideBar}>Profile</Link></li>
+                                        <li><Link href="profile/past-order" role="menuitem" onClick={updateSideBar}>Past Orders</Link></li>
+                                        <li><Link href="contacts" role="menuitem" onClick={updateSideBar}>Contacts</Link></li>
                                     </ul>
                                 </nav>
                     </div>
