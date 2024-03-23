@@ -23,6 +23,7 @@ export default function Home() {
         filterTagApi.fetchData()
     },[]);
     
+    
     return (
         <>
             { bannerApi['data']['data'] &&
@@ -42,13 +43,34 @@ export default function Home() {
                                             { (bannerApi['data']['data']['text'] != "") &&
                                                 <p>{bannerApi['data']['data']['text']}</p>
                                             }
-                                            { (bannerApi['data']['data']['button_text'] != "") &&
-                                                <Link href={{ pathname: bannerApi['data']['data']['button_link'], query: {
-                                                    searchKey: bannerApi['data']['data']['search_key'],
-                                                    searchValue: bannerApi['data']['data']['search_value']
-                                                } }} className="primary-btn">{bannerApi['data']['data']['button_text']}
-                                                    <span className="arrow_right"></span></Link>
-                                            }
+                                            {bannerApi['data']['data']['button_text'] !== "" && (
+                                                <>
+                                                    {bannerApi['data']['data']['show_search'] === "1" ? (
+                                                        <Link
+                                                            href={{
+                                                                pathname: bannerApi['data']['data']['button_link'],
+                                                                query: {
+                                                                    searchKey: bannerApi['data']['data']['search_key'],
+                                                                    searchValue: bannerApi['data']['data']['search_value']
+                                                                }
+                                                            }}
+                                                            className="primary-btn"
+                                                        >
+                                                            {bannerApi['data']['data']['button_text']}
+                                                            <span className="arrow_right"></span>
+                                                        </Link>
+                                                    ) : (
+                                                        <Link
+                                                            href={{ pathname: bannerApi['data']['data']['button_link'] }}
+                                                            className="primary-btn"
+                                                        >
+                                                            {bannerApi['data']['data']['button_text']}
+                                                            <span className="arrow_right"></span>
+                                                        </Link>
+                                                    )}
+                                                </>
+                                            )}
+
                                             <div className="hero__social">
                                                 { (facebookLink && facebookLink.value!= "")  &&
                                                     <a href={facebookLink?.value}><i className="fa fa-facebook"></i></a>
@@ -93,10 +115,16 @@ export default function Home() {
                                         </div>
                                         <div className="banner__item__text">
                                             <h2>{item.heading_1}</h2>
-                                            <Link href={{ pathname: item.button_link, query: {
-                                                    searchKey: item.search_key,
-                                                    searchValue: item.search_value
-                                                } }}>{item.button_text}</Link>
+                                            {
+                                                ( item.show_search == "1" ?
+                                                    <Link href={{ pathname: item.button_link, query: {
+                                                        searchKey: item.search_key,
+                                                        searchValue: item.search_value
+                                                    } }}>{item.button_text}</Link>
+                                                :
+                                                    <Link href={{ pathname: item.button_link }}>{item.button_text}</Link>
+                                                )
+                                            }    
                                         </div>
                                     </div>
                                 </div>
@@ -206,10 +234,14 @@ export default function Home() {
                                             <p>Seconds</p>
                                         </div>
                                     </div>
-                                    <Link href={{ pathname: saleProductApi.data.data.button_link, query: {
+                                    {   saleProductApi.data.data.show_search ?
+                                        <Link href={{ pathname: saleProductApi.data.data.button_link, query: {
                                                     searchKey: saleProductApi.data.data.search_key,
                                                     searchValue: saleProductApi.data.data.search_value
                                                 } }} className="primary-btn">{saleProductApi.data.data.button_text}</Link>
+                                        :
+                                        <Link href={{ pathname: saleProductApi.data.data.button_link}} className="primary-btn">{saleProductApi.data.data.button_text}</Link>
+                                    }
                                 </div>
                             </div>
                         </div>

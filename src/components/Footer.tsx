@@ -45,10 +45,14 @@ export default function Footer() {
                                         <ul>
                                             {item.sub_footer_menu.map((subItem: any, subIndex: number) => (
                                                 <li key={subIndex}>
-                                                    <Link href={{ pathname: subItem.link, query: {
-                                                        searchKey: subItem.search_key,
-                                                        searchValue: subItem.search_value
-                                                    } }}>{subItem.name}</Link>
+                                                    { subItem.show_search == "1" ?
+                                                        <Link href={{ pathname: subItem.link, query: {
+                                                            searchKey: subItem.search_key,
+                                                            searchValue: subItem.search_value
+                                                        } }}>{subItem.name}</Link>
+                                                        :
+                                                        <Link href={{ pathname: subItem.link}}>{subItem.name}</Link>
+                                                    }
                                                 </li>
                                             ))}
                                         </ul>
