@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import Layout from '../../components/Layout';
 import Link from 'next/link';
 
 import Product from "../../assets/img/product/product-1.jpg"
@@ -23,7 +22,7 @@ export default function Products() {
     }, []); 
 
   return (
-    <Layout>
+    <>
        <section className="breadcrumb-option">
         <div className="container">
             <div className="row">
@@ -280,6 +279,6 @@ export default function Products() {
     </section>
      
 
-    </Layout>       
+    </>       
   );
 }

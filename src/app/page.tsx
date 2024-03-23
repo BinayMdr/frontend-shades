@@ -5,11 +5,14 @@ import useApi from '@/hooks/useApi';
 import Link from 'next/link';
 import LoadingScreen from '@/components/LoadingScreen';
 import { useAppSelector } from '@/store';
+import useModal from '@/hooks/useModal';
+import OfferModal from '@/components/OfferModal';
 
 export default function Home() {
     const [tag,setTag] = useState(0);
     const animation = useAppSelector((state) => state.splash.splashState);
-    
+    const { showModal, modalRef, openModal, closeModal } = useModal();
+
     const facebookLink = findSettingByKey("fb-link");
     const tiktokLink = findSettingByKey("tik-tok-link");
     const instaLink = findSettingByKey("insta-link");
@@ -19,12 +22,14 @@ export default function Home() {
     const midBannerApi = useApi('mid-banners')
     const saleProductApi = useApi('sale-product')
     const filterTagApi = useApi('filter-tag')
+    const popupApi=useApi('pop-up')
 
     useEffect(() => {
         bannerApi.fetchData()
         midBannerApi.fetchData()
         saleProductApi.fetchData()
         filterTagApi.fetchData()
+        popupApi.fetchData()
     },[]);
     
     
@@ -256,7 +261,15 @@ export default function Home() {
                             </div>
                         </div>
                     </section>
-                }   
+                }  
+
+                {
+                    (popupApi.data.data && popupApi.data.data != null)
+                    &&
+                    <div className="modal" autoFocus role="dialog" ref={modalRef} style={{ display: 'block' }}>
+                        <OfferModal closeModal={closeModal} popupData={popupApi.data.data}/>
+                    </div>
+                } 
             </>
             :
             !animation && <LoadingScreen/>    
