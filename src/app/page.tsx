@@ -12,7 +12,7 @@ export default function Home() {
     const [tag,setTag] = useState(0);
     const animation = useAppSelector((state) => state.splash.splashState);
     const popUpModal = useAppSelector((state) => state.popUp.popUpModalState);
-
+    const [timeDifference, setTimeDifference] = useState<{ days: number, hours: number, minutes: number, seconds: number }>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
     const { showModal, modalRef, openModal, closeModal } = useModal();
 
     const facebookLink = findSettingByKey("fb-link");
@@ -34,7 +34,46 @@ export default function Home() {
         popupApi.fetchData()
     },[]);
     
+    useEffect(() => {
+        if (saleProductApi.data.data && saleProductApi.data.data != null) {
+            const intervalId = setInterval(() => {
+                console.log(saleProductApi.data.data.offer_till_date)
+                const difference = getNepaliTimeDifference(new Date(saleProductApi.data.data.offer_till_date));
+                setTimeDifference(difference);
+            }, 1000);
+            return () => clearInterval(intervalId);
+        }
+    }, [saleProductApi]);
     
+    const getNepaliTimeDifference = (startDate: Date) => {
+        console.log(startDate)
+        const endDate = new Date();
+        
+        const startMillis = new Date(startDate).getTime();
+        const endMillis = endDate.getTime();
+
+        // Calculate the difference in milliseconds
+        let difference = Math.abs(endMillis - startMillis);
+
+        // Calculate days
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        difference -= days * (1000 * 60 * 60 * 24);
+
+        // Calculate hours
+        const hours = Math.floor(difference / (1000 * 60 * 60));
+        difference -= hours * (1000 * 60 * 60);
+
+        // Calculate minutes
+        const minutes = Math.floor(difference / (1000 * 60));
+        difference -= minutes * (1000 * 60);
+
+        // Calculate seconds
+        const seconds = Math.floor(difference / 1000);
+
+        return { days, hours, minutes, seconds };
+    };
+
+
     return (
         <>
             {
@@ -234,19 +273,19 @@ export default function Home() {
                                         <h2>{saleProductApi.data.data.name}</h2>
                                         <div className="categories__deal__countdown__timer" id="countdown">
                                             <div className="cd-item">
-                                                <span>3</span>
+                                                <span>{timeDifference.days}</span>
                                                 <p>Days</p>
                                             </div>
                                             <div className="cd-item">
-                                                <span>1</span>
+                                                <span>{timeDifference.hours}</span>
                                                 <p>Hours</p>
                                             </div>
                                             <div className="cd-item">
-                                                <span>50</span>
+                                                <span>{timeDifference.minutes}</span>
                                                 <p>Minutes</p>
                                             </div>
                                             <div className="cd-item">
-                                                <span>18</span>
+                                                <span>{timeDifference.seconds}</span>
                                                 <p>Seconds</p>
                                             </div>
                                         </div>
