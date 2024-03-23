@@ -2,11 +2,14 @@
 import React from 'react';
 import Link from 'next/link';
 import useApi from '@/hooks/useApi';
-
+import LoadingScreen from '@/components/LoadingScreen';
+import { useAppSelector } from '@/store';
+import Image from 'next/image';
 
 export default function AboutUs() {
 
     const { data, error, isLoading } = useApi('about-us');
+    const animation = useAppSelector((state) => state.splash.splashState);
 
   return (
     <>  
@@ -91,11 +94,7 @@ export default function AboutUs() {
             }
         </>
        ) : 
-       (<div className="d-flex justify-content-center align-items-center spinner-container my-4">
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-            </div>
-        </div>
+       ( !animation && <LoadingScreen/>
        )
         }
     </>       

@@ -1,16 +1,19 @@
 "use client"
-import React, { useEffect } from 'react';
-import Layout from '../../components/Layout';
+import React from 'react';
 import useApi from '@/hooks/useApi';
+import { useAppSelector } from '@/store';
+import LoadingScreen from '@/components/LoadingScreen';
 
 export default function Contact() {
   
-const { data, error, isLoading } = useApi('contact');
-   
+    const { data, error, isLoading } = useApi('contact');
+    const animation = useAppSelector((state) => state.splash.splashState);
+
   return (
     
-    <Layout>  
-        { !isLoading &&
+    <>  
+        { data.data ?
+            (
             <section className="contact spad">
                 <div className="container">
                     <div className="row">
@@ -59,8 +62,12 @@ const { data, error, isLoading } = useApi('contact');
                     </div>
                 </div>
             </section>
+            ) :
+            (
+                !animation && <LoadingScreen/>
+            )
         }
-    </Layout> 
+    </> 
         
   );
 }
