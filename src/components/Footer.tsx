@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { findSettingByKey } from "@/helper/settingHelper";
 import useApi from '@/hooks/useApi';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
     const [showFooter, setShowFooter] = useState<boolean>(false);
@@ -31,7 +32,7 @@ export default function Footer() {
                             <div className="col-lg-3 col-md-6 col-sm-6">
                                 <div className="footer__about">
                                     <div className="footer__logo">
-                                        <a href="#"><img src={`${process.env.NEXT_PUBLIC_STORAGE_URL}${footerImageSetting?.value}`} alt="Shades with style logo"/></a>
+                                        <a href="#"><Image fill src={`${process.env.NEXT_PUBLIC_STORAGE_URL}${footerImageSetting?.value}`} alt="Shades with style logo"/></a>
                                     </div>
                                     <p>{footerSloganSetting?.value}</p>
                                 </div>

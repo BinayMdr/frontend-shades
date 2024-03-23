@@ -2052,7 +2052,15 @@ Thank You
 
 .footer__about .footer__logo {
 	margin-bottom: 30px;
+	height: 100px;
 }
+
+.footer__about .footer__logo img{
+	height: 100px!important;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 
 .footer__about .footer__logo a {
 	display: inline-block;
@@ -3986,6 +3994,10 @@ text-decoration: underline;
 	}
 	.header .container {
 		position: relative;
+		height: 100px;
+	}
+	.header .header__logo{
+		height: 100px;
 	}
 	.header__menu {
 		display: none;

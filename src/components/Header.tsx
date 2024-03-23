@@ -130,7 +130,7 @@ function Header() {
                     <div className="row">
                         <div className="col-lg-2 col-md-2">
                             <div className="header__logo">
-                                <Link href="/"><img src={`${process.env.NEXT_PUBLIC_STORAGE_URL}${bannerImage}`} alt="Shades with style logo"/></Link>
+                                <Link href="/"><Image layout="fill" src={`${process.env.NEXT_PUBLIC_STORAGE_URL}${bannerImage}`} alt="Shades with style logo"/></Link>
                             </div>
                         </div>
                         <div className="col-lg-8 col-md-8">
