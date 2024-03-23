@@ -9,14 +9,21 @@ import { setSettingState } from '@/store/reducers/SettingReducer';
 import { useAppSelector,useAppDispatch } from '../store/index';
 import { setSplashState } from '../store/reducers/SplashReducer';
 import SplashScreen from './SplashScreen';
+import useModal from '@/hooks/useModal';
+import OfferModal from "./OfferModal";
+
 interface Setting {
     key: string;
     value: string;
   }
 function Header() {
+    const { showModal, modalRef, openModal, closeModal } = useModal();
     const [status, setStatus] = useState<"active" | "inactive">("inactive");
     const [topText,setTopText] = useState<String|null>(null);
     const [bannerImage,setBannerImage] = useState<String|null>(null);
+    const popupApi = useApi('pop-up')
+    const popUpModal = useAppSelector((state) => state.popUp.popUpModalState);
+
     const pathname = usePathname()
     const dispatch = useAppDispatch();
     const { data, error, isLoading } = useApi('settings');
@@ -156,6 +163,13 @@ function Header() {
                     </div>
                     <div className="canvas__open"><i className="fa fa-bars" onClick={(e) => setStatus('active')}></i></div>
                 </div>
+                {
+                    ( (pathname == "/") && popUpModal && popupApi.data.data && popupApi.data.data != null)
+                    &&
+                    <div className="modal" autoFocus role="dialog" ref={modalRef} style={{ display: 'block' }}>
+                        <OfferModal closeModal={closeModal} popupData={popupApi.data.data}/>
+                    </div>
+                } 
             </header>
             </>
             )): (<SplashScreen onAnimationComplete={onAnimationComplete}/>)

@@ -5,15 +5,11 @@ import useApi from '@/hooks/useApi';
 import Link from 'next/link';
 import LoadingScreen from '@/components/LoadingScreen';
 import { useAppSelector } from '@/store';
-import useModal from '@/hooks/useModal';
-import OfferModal from '@/components/OfferModal';
 
 export default function Home() {
     const [tag,setTag] = useState(0);
     const animation = useAppSelector((state) => state.splash.splashState);
-    const popUpModal = useAppSelector((state) => state.popUp.popUpModalState);
     const [timeDifference, setTimeDifference] = useState<{ days: number, hours: number, minutes: number, seconds: number }>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-    const { showModal, modalRef, openModal, closeModal } = useModal();
 
     const facebookLink = findSettingByKey("fb-link");
     const tiktokLink = findSettingByKey("tik-tok-link");
@@ -302,14 +298,6 @@ export default function Home() {
                         </div>
                     </section>
                 }  
-
-                {
-                    (popUpModal && popupApi.data.data && popupApi.data.data != null)
-                    &&
-                    <div className="modal" autoFocus role="dialog" ref={modalRef} style={{ display: 'block' }}>
-                        <OfferModal closeModal={closeModal} popupData={popupApi.data.data}/>
-                    </div>
-                } 
             </>
             :
             !animation && <LoadingScreen/>    
