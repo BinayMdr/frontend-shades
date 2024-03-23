@@ -11,6 +11,8 @@ import OfferModal from '@/components/OfferModal';
 export default function Home() {
     const [tag,setTag] = useState(0);
     const animation = useAppSelector((state) => state.splash.splashState);
+    const popUpModal = useAppSelector((state) => state.popUp.popUpModalState);
+
     const { showModal, modalRef, openModal, closeModal } = useModal();
 
     const facebookLink = findSettingByKey("fb-link");
@@ -264,7 +266,7 @@ export default function Home() {
                 }  
 
                 {
-                    (popupApi.data.data && popupApi.data.data != null)
+                    (popUpModal && popupApi.data.data && popupApi.data.data != null)
                     &&
                     <div className="modal" autoFocus role="dialog" ref={modalRef} style={{ display: 'block' }}>
                         <OfferModal closeModal={closeModal} popupData={popupApi.data.data}/>

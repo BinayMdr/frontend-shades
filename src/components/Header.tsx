@@ -12,7 +12,6 @@ import SplashScreen from './SplashScreen';
 interface Setting {
     key: string;
     value: string;
-    // Add other properties if needed
   }
 function Header() {
     const [status, setStatus] = useState<"active" | "inactive">("inactive");

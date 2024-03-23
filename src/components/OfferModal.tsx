@@ -26,11 +26,11 @@ const OfferModal: React.FC<ModalProps> = ({closeModal,popupData}) => {
                       searchKey: popupData.search_key,
                       searchValue: popupData.search_value
                     } }}>
-                    <img src={`${process.env.NEXT_PUBLIC_STORAGE_URL}${popupData.image}`} alt={popupData.name} style={{ width: '100%', height: 'auto' }} />
+                    <img src={`${process.env.NEXT_PUBLIC_STORAGE_URL}${popupData.image}`} alt={popupData.name} style={{ width: '100%', height: 'auto' }} onClick={closeModal}/>
                   </Link>
                    :
                   <Link href={popupData.link}>
-                    <img src={`${process.env.NEXT_PUBLIC_STORAGE_URL}${popupData.image}`} alt={popupData.name} style={{ width: '100%', height: 'auto' }} />
+                    <img src={`${process.env.NEXT_PUBLIC_STORAGE_URL}${popupData.image}`} alt={popupData.name} style={{ width: '100%', height: 'auto' }} onClick={closeModal}/>
                   </Link>
                 }
                 </div>
