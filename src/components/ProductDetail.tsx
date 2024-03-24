@@ -32,9 +32,10 @@ const ProductDetail: React.FC<ModalProps> = ({item}) => {
                             ) )
                     }
                 </div>
+            </Link>
                 <div className="product__item__text">
                     <h6>{item.name}</h6>
-                    <a  className="add-cart">+ Add To Cart</a>
+                    <a className="add-cart">+ Add To Cart</a>
                     {
                         (typeof item.sale_price == 'number') ?
                         <h5>Rs. {item.sale_price}</h5>
@@ -47,7 +48,6 @@ const ProductDetail: React.FC<ModalProps> = ({item}) => {
                         )
                     }
                 </div>
-            </Link>
         </div>
   );
 };

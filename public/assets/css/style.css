@@ -1592,6 +1592,7 @@ Profile
 	border-radius: 50%;
 	line-height: 30px;
 	text-align: center;
+	cursor: pointer;
 }
 
 .product__pagination a.active {
