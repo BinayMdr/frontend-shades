@@ -144,8 +144,8 @@ export default function Products() {
                                             </form>
                                         </div>
                                         <div className="shop__sidebar__accordion">
-                                            <div>
-                                                <button className="reset-button" onClick={resetSearch}>Reset Filter</button>
+                                            <div class="reset-div">
+                                                <button className="reset-button" onClick={resetSearch}><span className="fa fa-trash"></span></button>
                                             </div>
                                             <div className="accordion" id="accordionExample">
                                                 {   categoryApi.data.data &&
