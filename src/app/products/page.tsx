@@ -42,8 +42,13 @@ export default function Products() {
         const value = searchParams.get('searchValue');
         
         if (key !== null && value !== null) {
-            setSearchKey(key);
-            setSearchValue(value);
+            resetSearch()
+            if(key=='category') setCategory(String(value))
+            if(key=='tag') setTag(String(value))
+            if(key=='brand') setBrand(String(value))
+            if(key=='color') setColor(String(value))
+            setSearchKey(key)
+            setSearchValue(value)
         }
     }, [searchParams]);
 
@@ -105,7 +110,7 @@ export default function Products() {
         setColor('')
         setTag('')
         setPrice('')
-    }
+    }   
 
   return (
     <>
