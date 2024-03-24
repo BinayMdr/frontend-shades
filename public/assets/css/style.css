@@ -1685,6 +1685,26 @@ Thank You
 	text-align: center;
 }
 
+.product__details__pic .tab-content{
+	width: 100%;
+	height: 100%;
+}
+
+.product__details__pic .tab-content .tab-pane{
+	width: 100%;
+	height: 100%;
+}
+
+.product__details__pic .tab-content .tab-pane .product__details__pic__item{
+	width: 100%;
+	height: 100%;
+}
+
+.product__details__pic .tab-content .tab-pane .product__details__pic__item img{
+	width: 100%;
+	height: 100%;
+}
+
 .product__details__pic .nav-tabs .nav-item.show .nav-link,
 .product__details__pic .nav-tabs .nav-link.active {
 	background-color: transparent;
@@ -2013,6 +2033,7 @@ Thank You
 	font-weight: 700;
 	padding-bottom: 10px;
 	border-bottom: 2px solid transparent;
+	cursor: pointer;
 }
 
 .product__details__tab .nav-tabs .nav-item .nav-link.active {
