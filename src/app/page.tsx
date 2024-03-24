@@ -228,7 +228,17 @@ export default function Home() {
                                             <div className="product__item__text">
                                                 <h6>{item.name}</h6>
                                                 <a href="#" className="add-cart">+ Add To Cart</a>
-                                                <h5>Rs. {item.price}</h5>
+                                                {
+                                                    (typeof item.sale_price == 'number') ?
+                                                    <h5>Rs. {item.sale_price}</h5>
+                                                    :(
+                                                        (item.discounted_price != "" && 
+                                                            item.discounted_price != null)
+                                                        ? <h5>Rs. {item.discounted_price}</h5>
+                                                    :
+                                                    <h5>Rs. {item.price}</h5>
+                                                    )
+                                                }
                                             </div>
                                         </div>
                                     </div>
