@@ -268,8 +268,12 @@ export default function Products() {
                                             <div className="row">
                                                 <div className="col-lg-6 col-md-6 col-sm-6">
                                                     <div className="shop__product__option__left">
-                                                        <p>Showing {productApiData?.data.from}–{productApiData?.data.to} of 
-                                                        {" " +productApiData?.data.total} results</p>
+                                                        {
+                                                            productApiData.data.total != 0 ?
+                                                            <p>Showing {productApiData?.data.from}–{productApiData?.data.to} of 
+                                                            {" " +productApiData?.data.total} results</p>
+                                                            : <p> Showing 0 results</p>
+                                                        }
                                                     </div>
                                                 </div>
                                                 <div className="col-lg-6 col-md-6 col-sm-6">
@@ -294,17 +298,19 @@ export default function Products() {
                                             
                                             
                                         </div>
-                                        <div className="row">
-                                            <div className="col-lg-12">
-                                                <div className="product__pagination">
-                                                    {getPageRange(productApiData.data.current_page, productApiData.data.last_page, 8).map((page) => (
-                                                        <a key={page} className={page === productApiData.data.current_page ? 'active' : ''} onClick={() => setPage(page.toString())}>
-                                                            {page}
-                                                        </a>
-                                                    ))}
+                                        {   productApiData.data.total != 0 &&
+                                            <div className="row">
+                                                <div className="col-lg-12">
+                                                    <div className="product__pagination">
+                                                        {getPageRange(productApiData.data.current_page, productApiData.data.last_page, 8).map((page) => (
+                                                            <a key={page} className={page === productApiData.data.current_page ? 'active' : ''} onClick={() => setPage(page.toString())}>
+                                                                {page}
+                                                            </a>
+                                                        ))}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
                                     </div>
                                 }
                             </div>
