@@ -99,6 +99,14 @@ export default function Products() {
         return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
     };
 
+    const resetSearch = () => {
+        setCategory('')
+        setBrand('')
+        setColor('')
+        setTag('')
+        setPrice('')
+    }
+
   return (
     <>
         { (!categoryApi.isLoading && !colorApi.isLoading && !brandApi.isLoading
@@ -136,6 +144,9 @@ export default function Products() {
                                             </form>
                                         </div>
                                         <div className="shop__sidebar__accordion">
+                                            <div>
+                                                <button className="reset-button" onClick={resetSearch}>Reset Filter</button>
+                                            </div>
                                             <div className="accordion" id="accordionExample">
                                                 {   categoryApi.data.data &&
                                                     <div className="card">

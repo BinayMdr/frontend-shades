@@ -1289,6 +1289,19 @@ Profile
 	margin-bottom: 25px;
 }
 
+.shop__sidebar__accordion .reset-button{
+	padding: 5px 10px;
+	border-radius: 5px;
+	background-color: black;
+	color: white;
+	border: none;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
+	text-decoration: none;
+	display: inline-block;
+}
+
 .shop__sidebar__accordion .card:last-child {
 	margin-bottom: 0;
 }
@@ -3856,6 +3869,7 @@ text-decoration: underline;
 		padding-right: 0;
 		padding-top: 40px;
 	}
+
 	.cart__discount {
 		margin-top: 40px;
 	}
