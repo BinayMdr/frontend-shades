@@ -6,8 +6,9 @@ import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation';
 import LoadingScreen from '@/components/LoadingScreen';
 import { useAppSelector } from '@/store';
+import ProductDetail from '@/components/ProductDetail';
 
-export default function ProductDetail() {
+export default function ProductDetails() {
     const pathname = usePathname()
     const slug = pathname.replace("/products/","");
     const productApi = useApi(`product-detail/${slug}`);
@@ -23,6 +24,7 @@ export default function ProductDetail() {
         productApi.fetchData()
         relatedProductApi.fetchData()
     },[]);
+
 
     if(productApi.data.data === null) {
         router.push('/not-found-404')
@@ -175,37 +177,7 @@ export default function ProductDetail() {
                             <div className="row">
                                 {relatedProductApi.data.data.map((item: any, index: number) => (
                                     <div className="col-lg-3 col-md-6 col-sm-6 col-sm-6" key={index}>
-                                        <div className="product__item">
-                                            <div className="product__item__pic set-bg" style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_STORAGE_URL}${item.display_image})` }}>
-                                                {   
-                                                    (item.is_new == "1" ? 
-                                                            <span className="label">New</span>
-                                                        :(  item.is_out_of_stock == "1" ?
-                                                            <span className="out_of_stock">Out of stock</span>
-                                                            :(
-                                                                typeof item.sale_price == 'number' ?
-                                                                <span className="sale">Sale</span>
-                                                                : ''  
-                                                            )
-                                                        ) )
-                                                }
-                                            </div>
-                                            <div className="product__item__text">
-                                                <h6>{item.name}</h6>
-                                                <a href="#" className="add-cart">+ Add To Cart</a>
-                                                {
-                                                    (typeof item.sale_price == 'number') ?
-                                                    <h5>Rs. {item.sale_price}</h5>
-                                                    :(
-                                                        (item.discounted_price != "" && 
-                                                            item.discounted_price != null)
-                                                        ? <h5>Rs. {item.discounted_price}</h5>
-                                                    :
-                                                    <h5>Rs. {item.price}</h5>
-                                                    )
-                                                }
-                                            </div>
-                                        </div>
+                                        <ProductDetail item={item}/>
                                     </div>
                                 ))}
                             </div>

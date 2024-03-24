@@ -1245,7 +1245,7 @@ Profile
 .shop__sidebar__search form input {
 	width: 100%;
 	font-size: 15px;
-	color: #b7b7b7;
+	color: #111111;
 	padding-left: 20px;
 	border: 1px solid #e5e5e5;
 	height: 42px;
@@ -1321,7 +1321,25 @@ Profile
 .shop__sidebar__price ul,
 .shop__sidebar__brand ul {
 	height: 225px;
+	overflow-y: auto;
+	padding-right: 10px;
 }
+
+/* Styling for the scrollbar track */
+.nice-scroll::-webkit-scrollbar {
+	width: 8px; /* Set the width of the scrollbar */
+  }
+  
+  /* Styling for the scrollbar thumb */
+  .nice-scroll::-webkit-scrollbar-thumb {
+	background-color: #888; /* Color of the scrollbar thumb */
+	border-radius: 10px; /* Round the corners of the scrollbar thumb */
+  }
+  
+  /* Styling for the scrollbar track on hover */
+  .nice-scroll:hover::-webkit-scrollbar-thumb {
+	background-color: #555; /* Change the color of the scrollbar thumb on hover */
+  }
 
 .shop__sidebar__categories ul li,
 .shop__sidebar__price ul li,
@@ -1338,12 +1356,20 @@ Profile
 	-webkit-transition: all, 0.3s;
 	-o-transition: all, 0.3s;
 	transition: all, 0.3s;
+	cursor: pointer;
 }
 
 .shop__sidebar__categories ul li a:hover,
 .shop__sidebar__price ul li a:hover,
 .shop__sidebar__brand ul li a:hover {
 	color: #111111;
+}
+
+.shop__sidebar__categories ul li a.active,
+.shop__sidebar__price ul li a.active,
+.shop__sidebar__brand ul li a.active {
+	color: #111111;
+	font-weight: bold;
 }
 
 .shop__sidebar__brand ul {
@@ -1466,9 +1492,15 @@ Profile
 	-webkit-transition: all, 0.3s;
 	-o-transition: all, 0.3s;
 	transition: all, 0.3s;
+	cursor: pointer;
 }
 
 .shop__sidebar__tags a:hover {
+	background: #111111;
+	color: #ffffff;
+}
+
+.shop__sidebar__tags a.active {
 	background: #111111;
 	color: #ffffff;
 }

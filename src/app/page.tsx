@@ -5,6 +5,7 @@ import useApi from '@/hooks/useApi';
 import Link from 'next/link';
 import LoadingScreen from '@/components/LoadingScreen';
 import { useAppSelector } from '@/store';
+import ProductDetail from '@/components/ProductDetail';
 
 export default function Home() {
     const [tag,setTag] = useState(0);
@@ -33,7 +34,6 @@ export default function Home() {
     useEffect(() => {
         if (saleProductApi.data.data && saleProductApi.data.data != null) {
             const intervalId = setInterval(() => {
-                console.log(saleProductApi.data.data.offer_till_date)
                 const difference = getNepaliTimeDifference(new Date(saleProductApi.data.data.offer_till_date));
                 setTimeDifference(difference);
             }, 1000);
@@ -207,40 +207,7 @@ export default function Home() {
                             {
                                 filterTagApi.data.data[tag].products.map((item: any, index: number) => (
                                     <div className="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" key={index}>
-                                        <div className="product__item">
-                                            <Link href={`/products/${item.slug}`}>
-                                            <div className="product__item__pic set-bg" style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_STORAGE_URL}${item.display_image})` }}>
-                                                {   
-                                                (item.is_new == "1" ? 
-                                                        <span className="label">New</span>
-                                                    :(  item.is_out_of_stock == "1" ?
-                                                        <span className="out_of_stock">Out of stock</span>
-                                                        :(
-                                                            typeof item.sale_price == 'number' ?
-                                                            <span className="sale">Sale</span>
-                                                            : ''  
-                                                        )
-                                                    ) )
-                                                }
-                                                
-                                            </div>
-                                            </Link>
-                                            <div className="product__item__text">
-                                                <h6>{item.name}</h6>
-                                                <a href="#" className="add-cart">+ Add To Cart</a>
-                                                {
-                                                    (typeof item.sale_price == 'number') ?
-                                                    <h5>Rs. {item.sale_price}</h5>
-                                                    :(
-                                                        (item.discounted_price != "" && 
-                                                            item.discounted_price != null)
-                                                        ? <h5>Rs. {item.discounted_price}</h5>
-                                                    :
-                                                    <h5>Rs. {item.price}</h5>
-                                                    )
-                                                }
-                                            </div>
-                                        </div>
+                                       <ProductDetail item={item}/>
                                     </div>
                                 ))
                             }
@@ -265,7 +232,7 @@ export default function Home() {
                                 </div>
                                 <div className="col-lg-4">
                                     <div className="categories__hot__deal">
-                                        <img src={`${process.env.NEXT_PUBLIC_STORAGE_URL}${saleProductApi.data.data.image}`} alt={saleProductApi.data.data.heading_1} name={saleProductApi.data.data.heading_1} fill/>
+                                        <img src={`${process.env.NEXT_PUBLIC_STORAGE_URL}${saleProductApi.data.data.image}`} alt={saleProductApi.data.data.heading_1} name={saleProductApi.data.data.heading_1}/>
                                         <div className="hot__deal__sticker">
                                             <span>Sale Of</span>
                                             <h5>{'Rs. ' +saleProductApi.data.data.sale_price}</h5>
