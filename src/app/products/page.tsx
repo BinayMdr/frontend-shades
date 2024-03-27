@@ -149,7 +149,7 @@ export default function Products() {
                                             </form>
                                         </div>
                                         <div className="shop__sidebar__accordion">
-                                            <div class="reset-div">
+                                            <div className="reset-div">
                                                 <button className="reset-button" onClick={resetSearch}><span className="fa fa-trash"></span></button>
                                             </div>
                                             <div className="accordion" id="accordionExample">
